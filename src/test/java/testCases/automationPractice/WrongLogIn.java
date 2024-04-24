@@ -35,13 +35,8 @@ public class WrongLogIn {
             loginEmail.screenshot(new Locator.ScreenshotOptions().setPath(Paths.get("img/fillInputEmail.png")));
             page.getByTestId("login-password").fill("Password@2");
             page.getByTestId("login-button").press("Enter");
-            //page.waitForTimeout(5000);
-            boolean isErrorMsgVisible = page.waitForSelector("//form[@action=\"/login\"]/p").isVisible();
-            if (isErrorMsgVisible) {
-                page.screenshot(new Page.ScreenshotOptions().setPath(Paths.get("img/incorrectLogin.png")));
-                assertThat(page.locator("//form[@action=\"/login\"]/p")).hasText("Your email or password is incorrect!");
-            }
-             //form[@action="/login"]/p
+            page.screenshot(new Page.ScreenshotOptions().setPath(Paths.get("img/incorrectLogin.png")));
+            assertThat(page.locator("//form[@action=\"/login\"]/p")).hasText("Your email or password is incorrect!");
 
 
         }
