@@ -3,6 +3,8 @@ package testCases.automationPractice;
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.options.AriaRole;
 
+import java.nio.file.Paths;
+
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 public class RegisterUser {
@@ -28,7 +30,7 @@ public class RegisterUser {
             // fill username and password
             String userName = "Joe Doe";
             page.getByTestId("signup-name").fill(userName);
-            page.getByTestId("signup-email").fill("joe.doe26@email.com");
+            page.getByTestId("signup-email").fill("joe.doe27@email.com");
             page.locator("//button[@type=\"submit\" and text()= \"Signup\"]").click();
 
             // wait for signup page
@@ -81,24 +83,26 @@ public class RegisterUser {
 
             //page.pause();
             page.waitForLoadState();
+            //boolean isIframeVisible = page.frameLocator("iframe[name=\"aswift_1\"]").getByLabel("Close ad").isVisible();
             //boolean isIframeVisible = page.locator("iframe[name=\"aswift_1\"]").isVisible();
             //if (!isIframeVisible)
             page.frameLocator("iframe[name=\"aswift_1\"]").getByLabel("Close ad").click();
 
             //verify user logged in
-
             Locator loggedUser = page.locator("//b[text()=\"" + userName + "\"]");
             assertThat(loggedUser).containsText(userName);
 
-            //page.getByText("Logged in as Joe Doe");
-
+            page.pause();
             // click on delete button
-            page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName(" Delete Account")).click();
+            //page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName(" Delete Account")).click();
+            //page.waitForTimeout(2000);
+            //page.screenshot(new Page.ScreenshotOptions().setPath(Paths.get("img/deleteAccount.png")));
 
             // click on continue
-            page.getByTestId("continue-button").click();
+            //page.getByTestId("continue-button").click();
 
             page.waitForTimeout(5000);
+
 
         }
 
