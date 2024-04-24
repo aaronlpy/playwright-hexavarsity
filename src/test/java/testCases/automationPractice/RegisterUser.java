@@ -26,8 +26,9 @@ public class RegisterUser {
             page.waitForURL("**/login");
 
             // fill username and password
-            page.getByTestId("signup-name").fill("Joe Doe");
-            page.getByTestId("signup-email").fill("joe.doe22@email.com");
+            String userName = "Joe Doe";
+            page.getByTestId("signup-name").fill(userName);
+            page.getByTestId("signup-email").fill("joe.doe26@email.com");
             page.locator("//button[@type=\"submit\" and text()= \"Signup\"]").click();
 
             // wait for signup page
@@ -65,14 +66,39 @@ public class RegisterUser {
             page.mouse().move(0, 1000);
             page.getByTestId("zipcode").fill("75056");
             page.getByTestId("mobile_number").fill("7871563692");
-            page.waitForTimeout(5000);
-            page.locator("id=create-account").click();
+            //page.waitForTimeout(5000);
+            page.mouse().down();
+            page.press("//*[text()=\"Create Account\"]","Enter");
+            //page.locator("id=create-account").click();
 
             page.waitForURL("**/account_created");
 
             Locator successMsg = page.getByTestId("account-created");
             assertThat(successMsg).containsText("Account Created");
-            page.pause();
+
+            // click on continue
+            page.getByTestId("continue-button").click();
+
+            //page.pause();
+            page.waitForLoadState();
+            //boolean isIframeVisible = page.locator("iframe[name=\"aswift_1\"]").isVisible();
+            //if (!isIframeVisible)
+            page.frameLocator("iframe[name=\"aswift_1\"]").getByLabel("Close ad").click();
+
+            //verify user logged in
+
+            Locator loggedUser = page.locator("//b[text()=\"" + userName + "\"]");
+            assertThat(loggedUser).containsText(userName);
+
+            //page.getByText("Logged in as Joe Doe");
+
+            // click on delete button
+            page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName(" Delete Account")).click();
+
+            // click on continue
+            page.getByTestId("continue-button").click();
+
+            page.waitForTimeout(50000);
 
         }
 
