@@ -98,7 +98,7 @@ public class RegisterUser {
             // click on continue
             page.getByTestId("continue-button").click();
 
-            page.waitForTimeout(50000);
+            page.waitForTimeout(5000);
 
         }
 
