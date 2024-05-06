@@ -41,7 +41,7 @@ public class LoginUser {
             Locator loggedUser = page.locator("//b[text()=\"" + userName + "\"]");
             assertThat(loggedUser).containsText(userName);
             page.locator("//a[text()=\" Logout\"]").click();
-            System.out.println(String.format("User %s was logged out successfully", userName));
+            System.out.printf("User %s was logged out successfully%n", userName);
             page.waitForTimeout(3000);
 
         }
